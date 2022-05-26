@@ -16,24 +16,26 @@ public class BalanceController {
     @Autowired // чтоб заинжектился BankService
     private BankService bankService;
 
+    // Получить текущий счет
     @GetMapping("/{accountId}")
-    public int getBalance(@PathVariable int accountId){
-        Balance balance = bankService.getBalance(accountId);
-        return balance.getAmount();
+    public BigDecimal getBalance(@PathVariable Long accountId) {
+        BigDecimal balance = bankService.getBalance(accountId);
+        return balance;
     }
 
-    // Получить текущий счет
-//    @GetMapping("/{accountId}")
-//    public BigDecimal getBalance(@PathVariable Long accountId){
-//        return BigDecimal.valueOf(48); //bankService.getBalance(accountId);
+//    // Добавить новый счет
+//    @PostMapping("/add")
+//    public Balance addNewAccount(@RequestBody Balance balance){
+//        bankService.saveBalance(balance);
+//        return balance;
 //    }
 
-//    // Добавить деньги на счет указанный в TransferBalance
-//    @PostMapping ("/add")
-//    public BigDecimal addMoney(@RequestBody TransferBalance transferBalance){
-//        return bankService.addMoney(transferBalance.getTo(), transferBalance.getAmount());
-//    }
-//
+    // Добавить деньги на счет указанный в Balance
+    @PostMapping("/add")
+    public BigDecimal addMoney(@RequestBody Balance balance) {
+        return bankService.addMoney(balance.getId(), balance.getAmount());
+    }
+
 //    // Перевести деньги
 //    @PostMapping ("/transfer")
 //    public void transfer(@RequestBody TransferBalance transferBalance){

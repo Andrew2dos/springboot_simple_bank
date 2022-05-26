@@ -3,6 +3,7 @@ package com.andrew2dos.simplebank;
 
 import com.andrew2dos.simplebank.entity.Balance;
 import lombok.AllArgsConstructor;
+import org.apache.catalina.Store;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -13,46 +14,41 @@ import java.util.Optional;
 @AllArgsConstructor
 public class BankService {
 
-    private final BalanceRepository balanceRepository;
 
-    public Balance getBalance(int id) {
-        Balance balance = null;
-        Optional<Balance> optional = balanceRepository.findById(id);
-        if(optional.isPresent()){
-            balance = optional.get();
-        }
-        return balance;
-    }
+    private BalanceRepository balanceRepository;
 
-//    public BigDecimal getBalance(Long accountId) {
-//        Balance balance = balanceRepository.getOne(accountId);
-//        BigDecimal decimal = balance.getAmount();
-//        if (balance == null) {
-//            throw new IllegalArgumentException();
-//        }
-//        return decimal;
-//    }
-
-//    public BigDecimal getBalance(Long accountId) {
-//        BigDecimal balance = balanceEntity.getBalanceForId(accountId);
-//        if(balance == null){
-//            throw new IllegalArgumentException();
+//    public Balance getBalance(Long id) {
+//        Balance balance = null;
+//        Optional<Balance> optional = balanceRepository.findById(id);
+//        if(optional.isPresent()){
+//            balance = optional.get();
 //        }
 //        return balance;
 //    }
 
-//    public BigDecimal addMoney(Long to, BigDecimal amount) {
-//        BigDecimal currentBalance = balanceEntity.getBalanceForId(to);
-//        if(currentBalance == null){
-//            balanceEntity.save(to, amount);
-//            return amount;
-//        } else {
-//            BigDecimal updatedBalance = currentBalance.add(amount);
-//            balanceEntity.save(to, updatedBalance);
-//            return updatedBalance;
-//        }
+    public BigDecimal getBalance(Long accountId) {
+        BigDecimal amount = balanceRepository.getOne(accountId).getAmount();
+        if (amount == null) {
+            throw new IllegalArgumentException();
+        }
+        return amount;
+    }
+
+//    public void saveBalance(Balance balance) {
+//        balanceRepository.save(balance);
 //    }
-//
+
+    public BigDecimal addMoney(Long id, BigDecimal amount) {
+        BigDecimal updatedBalance = getBalance(id).add(amount);
+
+        Balance balance = balanceRepository.getById(id);
+        balance.setAmount(updatedBalance);
+        balanceRepository.save(balance);
+
+        return updatedBalance;
+
+    }
+
 //    public void makeTransfer(TransferBalance transferBalance) {
 //        BigDecimal fromBalance = balanceEntity.getBalanceForId(transferBalance.getFrom());
 //        BigDecimal toBalance = balanceEntity.getBalanceForId(transferBalance.getTo());

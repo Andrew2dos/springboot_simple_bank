@@ -1,14 +1,10 @@
 package com.andrew2dos.simplebank;
 
 import com.andrew2dos.simplebank.entity.Balance;
-import com.sun.xml.bind.v2.util.QNameMap;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.math.BigDecimal;
 
 
 public interface BalanceRepository extends JpaRepository<Balance, Long> {
-
 
 //    private final Map<Long, BigDecimal> storage = new HashMap<>(Map.of(1L, BigDecimal.TEN));
 //

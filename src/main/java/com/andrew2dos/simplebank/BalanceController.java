@@ -1,6 +1,7 @@
 package com.andrew2dos.simplebank;
 
 import com.andrew2dos.simplebank.entity.Balance;
+import com.andrew2dos.simplebank.model.TransferRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,14 @@ public class BalanceController {
 
     // Добавить деньги на счет указанный в Balance
     @PostMapping("/add")
-    public BigDecimal addMoney(@RequestBody Balance balance) {
-        return bankService.addMoney(balance.getId(), balance.getAmount());
+    public BigDecimal addMoney(@RequestBody TransferRequest request) {
+        return bankService.addMoney(request.getTo(), request.getAmount());
+    }
+
+        // Перевести деньги
+    @PostMapping ("/transfer")
+    public void transfer(@RequestBody TransferRequest request){
+        bankService.makeTransfer(request);
     }
 
 //    // Перевести деньги

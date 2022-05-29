@@ -5,7 +5,6 @@ import com.andrew2dos.simplebank.model.TransferRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.math.BigDecimal;
 
 @Slf4j // Lombok сам поднимает логгер и подключает экземпляр логгера
@@ -24,12 +23,11 @@ public class BalanceController {
         return balance;
     }
 
-//    // Добавить новый счет
-//    @PostMapping("/add")
-//    public Balance addNewAccount(@RequestBody Balance balance){
-//        bankService.saveBalance(balance);
-//        return balance;
-//    }
+    // Добавить новый счет
+    @PostMapping("/create")
+    public void createNewAccount(@RequestBody Balance balance){
+        bankService.createAccount(balance);
+    }
 
     // Добавить деньги на счет указанный в Balance
     @PostMapping("/add")
@@ -42,12 +40,6 @@ public class BalanceController {
     public void transfer(@RequestBody TransferRequest request){
         bankService.makeTransfer(request);
     }
-
-//    // Перевести деньги
-//    @PostMapping ("/transfer")
-//    public void transfer(@RequestBody TransferBalance transferBalance){
-//        bankService.makeTransfer(transferBalance);
-//    }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public String handle(IllegalArgumentException e) {

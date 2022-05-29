@@ -1,7 +1,6 @@
 package com.andrew2dos.simplebank.entity;
 
 import lombok.Data;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 

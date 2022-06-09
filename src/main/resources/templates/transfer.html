@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+    <title>Transfer</title>
+    <link rel="stylesheet" type="text/css" th:href="@{css/style.css}"/>
+</head>
+<body>
+<div class="container">
+    </br>
+    <h2>Transfer dialog</h2>
+    <hr>
+
+    <p class="h4 mb-4">Make a transfer</p>
+    <form action="#" th:action="@{/transfer}" th:object="${request}" method="POST">
+
+        <input type="text" th:field="*{from}" class="form-control mb-4 col-4" placeholder="from ID"/>
+        <p th:if="${#fields.hasErrors('from')}" th:errors="*{from}" th:errorclass="error">Empty From</p>
+
+        <input type="text" th:field="*{to}" class="form-control mb-4 col-4" placeholder="to ID"/>
+        <p th:if="${#fields.hasErrors('to')}" th:errors="*{to}" th:errorclass="error">Empty To</p>
+
+        <input type="text" th:field="*{amount}" class="form-control mb-4 col-4" placeholder="input amount">
+        <p th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}" th:errorclass="error">Empty Amount</p>
+        <button type="submit" class="btn btn-info col-2">Submit</button>
+    </form>
+
+    <hr>
+    <a th:href="accountList">Back to Account List</a>
+
+</div>
+</body>
+</html>

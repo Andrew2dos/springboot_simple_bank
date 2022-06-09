@@ -1,0 +1,31 @@
+
+h1 {
+    color:black;
+}
+
+h2 {
+    color:steelblue;
+}
+
+ .error {
+     color: red;
+ }
+
+a:link {
+    color: blue;
+}
+
+/* visited link */
+a:visited {
+    color: blueviolet;
+}
+
+/* mouse over link */
+a:hover {
+    color: lightblue;
+}
+
+/* selected link */
+a:active {
+    color: darkblue;
+}

@@ -3,7 +3,7 @@ package com.andrew2dos.simplebank;
 class BankServiceTest {
 
 //    private BalanceRepository balanceRepository;
-//    private BankService bankService = new BankService(balanceRepository);
+//    private BankServiceImpl bankService = new BankServiceImpl(balanceRepository);
 //
 //    @Test
 //    void getBalance() {

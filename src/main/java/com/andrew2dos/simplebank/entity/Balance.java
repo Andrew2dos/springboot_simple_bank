@@ -1,7 +1,9 @@
 package com.andrew2dos.simplebank.entity;
 
 import lombok.Data;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Entity
@@ -10,6 +12,9 @@ import java.math.BigDecimal;
 public class Balance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull(message = "Id's cannot be Null")
     private Long id;
+
+    @NotNull(message = "Amount's cannot be empty.")
     private BigDecimal amount;
 }

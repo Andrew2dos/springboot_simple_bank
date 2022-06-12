@@ -23,8 +23,10 @@
     <form action="#" th:action="@{/addAccount}"
                      th:object="${account}" method="POST">
 
-    <input type="text" th:field="*{id}" class="form-control mb-4 col-4" placeholder="input id"/>
-        <p th:if="${#fields.hasErrors('id')}" th:errors="*{id}" th:errorclass="error">Empty ID</p>
+    <input type="hidden" th:field="*{id}" />
+
+<!--    <input type="text" th:field="*{id}" class="form-control mb-4 col-4" placeholder="input id"/>-->
+<!--        <p th:if="${#fields.hasErrors('id')}" th:errors="*{id}" th:errorclass="error">Empty ID</p>-->
 
         <input type="text" th:field="*{amount}" class="form-control mb-4 col-4" placeholder="input amount">
         <p th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}" th:errorclass="error">Empty Amount</p>

@@ -35,11 +35,10 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public Balance createAccount(Balance balance) {
-        if (balanceRepository.findById(balance.getId())
-                .isPresent()) {
-            throw new IllegalStateException(String.format("Account with id %d already exists", balance.getId()));
-        }
-
+//        if (balanceRepository.findById(balance.getId())
+//                .isPresent()) {
+//            throw new IllegalStateException(String.format("Account with id %d already exists", balance.getId()));
+//        }
         return balanceRepository.save(balance);
     }
 
@@ -53,9 +52,7 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public BigDecimal addMoney(Long id, BigDecimal amount) {
-        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Amount must be greater than 0");
-        }
+        validateAmount(amount);
         BigDecimal updatedBalance = getBalance(id).add(amount);
         saveBalance(id, updatedBalance);
         return updatedBalance;
@@ -63,9 +60,7 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public BigDecimal resumeMoney(Long id, BigDecimal amount) {
-        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Amount must be greater than 0");
-        }
+        validateAmount(amount);
         BigDecimal updatedBalance = getBalance(id).subtract(amount);
         saveBalance(id, updatedBalance);
         return updatedBalance;
@@ -75,9 +70,7 @@ public class BankServiceImpl implements BankService {
     public void makeTransfer(TransferRequest transferRequest) {
         BigDecimal fromBalance = getBalance(transferRequest.getFrom());
         BigDecimal toBalance = getBalance(transferRequest.getTo());
-        if (transferRequest.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Amount must be greater than 0");
-        }
+        validateAmount(transferRequest.getAmount());
         if (transferRequest.getAmount().compareTo(fromBalance) > 0) {
             throw new IllegalArgumentException("Not enough money");
         }
@@ -94,4 +87,9 @@ public class BankServiceImpl implements BankService {
         balanceRepository.deleteById(id);
     }
 
+    private void validateAmount(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Amount must be greater than 0");
+        }
+    }
 }
